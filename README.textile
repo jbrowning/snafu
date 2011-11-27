@@ -1,0 +1,3 @@
+h1. Snafu
+
+Snafu is a Ruby implementation of the "Glitch API":http://api.glitch.com. "Glitch":http://glitch.com is a online multiplayer game created by Tiny Speck.
