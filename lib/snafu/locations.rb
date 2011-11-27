@@ -20,6 +20,14 @@ module Snafu
       return hub
     end
 
+    def get_street(street_id)
+      response = self.call("locations.streetInfo", :street_tsid => street_id)
+      hub = Hub.new(:id => response["hub"]["id"], :name => response["hub"]["name"])
+      street = Location.new(:id => response["tsid"],
+                            :name => response["name"],
+                            :hub => hub)
+    end
+
     # Models
 
     class Hub
@@ -41,7 +49,7 @@ module Snafu
         if options
           @id = options[:id]
           @name = options[:name]
-          @hub = options[:name]
+          @hub = options[:hub]
         end
       end
     end
