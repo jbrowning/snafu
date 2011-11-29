@@ -1,5 +1,3 @@
-require 'httparty'
-
 module Snafu
   API_URL = 'http://api.glitch.com/simple'
 
@@ -12,11 +10,13 @@ module Snafu
   end
 
   class Client
+    # it's p-p-p-party time
     include HTTParty
-    base_uri API_URL
-
+    
     # include other classes & modules so they can be called on the returned client object
     include Snafu::Locations
+    
+    base_uri API_URL
 
     attr_accessor :api_key
 
@@ -45,6 +45,8 @@ module Snafu
       end
     end
   end
+
+
 
   class GlitchAPIError < StandardError;end
 end

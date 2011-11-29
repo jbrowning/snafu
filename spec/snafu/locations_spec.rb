@@ -8,6 +8,7 @@ describe Snafu::Locations do
     @test_street_id = "LM416LNIKVLM1"
     @test_street_name = "Baby Steppes"
   end
+
   context "get_hubs" do
     it "should return an array of all hubs" do
       hubs = @snafu.get_hubs
@@ -23,14 +24,9 @@ describe Snafu::Locations do
   end
 
   context "get_hub" do
-    it "should return a hub if given a valid Hub ID" do
+    it "should return a valid hub if given a valid Hub ID" do
       hub = @snafu.get_hub(@test_hub_id)
       hub.name.should eql(@test_hub_name)
-    end
-
-    it "should return an array of all locations if given a valid Hub object" do
-      hub = Hub.new(:id => @test_hub_id, :name => @test_hub_name)
-      hub 
     end
   end
 
@@ -50,18 +46,5 @@ describe Snafu::Locations do
     end
 
     it "should contain connections to adjacent locations"
-  end
-
-  describe Snafu::Locations::Hub do
-    Hub = Snafu::Locations::Hub
-    it "should retain the ID & Name of the hub if given a valid " do
-      hub = Hub.new(:id => @test_hub_id, :name => @test_hub_name)
-      hub.id.should eql(@test_hub_id)
-      hub.name.should eql(@test_hub_name)
-    end
-  end
-
-  describe Snafu::Locations::Location do
-    Location = Snafu::Locations::Location
   end
 end
