@@ -10,7 +10,7 @@ To get started, instantiate a client by passing passing in your Glitch API key.
   <code>
     snafu = Snafu.new("the-api-key")
   </code>
-<pre>
+</pre>
 
 Currently, only the locations.* methods are supported and each returns a Ruby object representing its data.
 
@@ -20,7 +20,7 @@ Currently, only the locations.* methods are supported and each returns a Ruby ob
     hub = snafu.get_hub(hub_id) # "locations.getStreets"
     street = snafu.get_street(street_tsid) # "locations.streetInfo"
   </code>
-</p>
+</pre>
 
 The rest of the API will be supported in due time.
 
