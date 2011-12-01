@@ -1,7 +1,13 @@
 module Snafu
   module Models
+    # Defines a class for Glitch Hubs, which are the various regions in the game.
+    # 
     class Hub < Location
       attr_reader :streets
+      
+      # Accepts either the raw JSON-formatted response from the HTTParty get request or an options
+      # hash.
+      # 
       def initialize(options = {})
         if options.class == HTTParty::Response
           # construct the street information

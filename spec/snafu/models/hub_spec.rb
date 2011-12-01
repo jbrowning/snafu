@@ -18,7 +18,7 @@ module Snafu
           new_hub.streets.first.should eql(expected_street)
         end
 
-        it "should populate values if given the raw response from Glitch", :vcr do
+        it "should populate values if given the raw JSON response from HTTParty", :vcr do
           glitch_client = Snafu.new("test-key")
           glitch_response = glitch_client.call("locations.getStreets", :hub_id => 27)
           new_hub = Hub.new(glitch_response)
