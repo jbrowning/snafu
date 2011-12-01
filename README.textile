@@ -1,3 +1,65 @@
 h1. Snafu
 
-Snafu is a Ruby gem that provides an interface to the "Glitch API":http://api.glitch.com. "Glitch":http://glitch.com is a online multiplayer game created by Tiny Speck.
+Snafu is a Ruby gem that provides an interface to the "Glitch API":http://api.glitch.com. "Glitch":http://glitch.com is an online multi-player game created by Tiny Speck and provides a decent API for interacting with its world.
+
+h2. Usage
+
+To get started, instantiate a client by passing passing in your Glitch API key.
+
+<pre>
+  <code>
+    snafu = Snafu.new("the-api-key")
+  </code>
+<pre>
+
+Currently, only the locations.* methods are supported and each returns a Ruby object representing its data.
+
+<pre>
+  <code>
+    hubs = snafu.get_hubs # "locations.getHubs"
+    hub = snafu.get_hub(hub_id) # "locations.getStreets"
+    street = snafu.get_street(street_tsid) # "locations.streetInfo"
+  </code>
+</p>
+
+The rest of the API will be supported in due time.
+
+You can also receive raw data from the Glitch API by passing in any method as a string and supplying required parameters via an options hash. This returns a Hash representation of the JSON returned by Glitch:
+
+<pre>
+  <code>
+    snafu.call("calendar.getHolidays")
+    # => {
+    # =>   "ok"=>1,
+    # =>   "days"=>
+    # =>   [{"month"=>1, "day"=>5, "name"=>"AlphCon"},
+    # =>    {"month"=>2, "day"=>2, "name"=>"Lemadan"},
+    # =>    {"month"=>3, "day"=>3, "name"=>"Pot Twoday"},
+    # =>    {"month"=>4, "day"=>2, "name"=>"Root"},
+    # =>    {"month"=>4, "day"=>3, "name"=>"Root"},
+    # =>    {"month"=>4, "day"=>4, "name"=>"Root"},
+    # =>    {"month"=>4, "day"=>11, "name"=>"Sprinkling"},
+    # =>    {"month"=>6, "day"=>17, "name"=>"Croppaday"},
+    # =>    {"month"=>7, "day"=>1, "name"=>"Belabor Day"},
+    # =>    {"month"=>8, "day"=>37, "name"=>"Zilloween"},
+    # =>    {"month"=>11, "day"=>11, "name"=>"Recurse Eve"}]
+    # => }
+    snafu.call("locations.getStreets", :hub_id => 27)
+    # => {
+    # =>   "ok"=>1,
+    # =>   "hub_id"=>"27",
+    # =>   "name"=>"Ix",
+    # =>   "streets"=>
+    # =>   {
+    # =>     "LM416LNIKVLM1"=>{"name"=>"Baby Steppes"},
+    # =>     "LM413SQ6LRN58"=>{"name"=>"East Spice"},
+    # =>     "LM410QQ0CHARO"=>{"name"=>"Flipside"},
+    # =>     "LM4115NJ46G8M"=>{"name"=>"Groddle Ladder"},
+    # =>     "LM4109NI2R640"=>{"name"=>"Guillermo Gamera Way"},
+    # =>     "LM410TMR0S2S1"=>{"name"=>"Ruta Asuncion"},
+    # =>     "LM413RQ6LRG9N"=>{"name"=>"West Spice"}
+    # =>   }
+    # => }
+  </code>
+</pre>
+
