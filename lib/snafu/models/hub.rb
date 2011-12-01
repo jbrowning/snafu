@@ -1,15 +1,25 @@
 module Snafu
   module Models
-    class Hub
-      attr_accessor :id, :name, :streets
+    class Hub < Location
+      attr_reader :streets
       def initialize(options = {})
-        @id = options[:id]
-        @name = options[:name]
-        @streets = options[:streets]
-      end
-
-      def to_s
-        "#{@id} - #{@name}"
+        if options.class == HTTParty::Response
+          # construct the street information
+          @id = options["hub_id"]
+          @name = options["name"]
+          @streets = []
+          options["streets"].each do |street_id, street|
+            @streets << {:id => street_id, :name => street[:name]}
+          end
+        else
+          @id = options[:id]
+          @name = options[:name]
+          if options[:streets].is_a? Array
+            @streets = options[:streets]
+          else
+            @streets = [options[:streets]]
+          end
+        end
       end
     end
   end

@@ -6,16 +6,19 @@ describe Snafu::Client do
   end
 
   describe 'call' do
-    it 'should receive a successful response from the Glitch API if given an valid method' do
-      result = @snafu.call("calendar.getHolidays")
-      result['ok'].should eql(1)
+    it 'should receive a successful response from the Glitch API if given an valid method', :vcr do
+      VCR.use_cassette "calendar.getHoldays/valid_calendar" do
+        result = @snafu.call("calendar.getHolidays")
+        result['ok'].should eql(1)
+      end
     end
 
-    it 'should raise a GlitchAPIError if receiving an unsucessful response from the Glitch API' do
+    it 'should raise a GlitchAPIError if receiving an unsucessful response from the Glitch API', :vcr do
+
       expect { @snafu.call("badmethod") }.to raise_error(Snafu::GlitchAPIError)
     end
 
-    it 'should accept a hash of POST arguments' do
+    it 'should accept a hash of POST arguments', :vcr do
       hub_id = "27"
       hub_name = "Ix"
       result = @snafu.call("locations.getStreets", {:hub_id => "27"})

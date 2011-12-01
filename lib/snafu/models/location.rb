@@ -1,13 +1,13 @@
 module Snafu
   module Models
     class Location
-      attr_accessor :id, :name, :hub, :connections
-      def initialize(options = {})
-        if options
-          @id = options[:id]
-          @name = options[:name]
-          @hub = options[:hub]
-        end
+      attr_reader :id, :name
+      def initializer(options={})
+        @id = options[:id]
+        @name = options[:name]
+      end
+      def to_s
+        "#{self.id} - #{self.name}"
       end
     end
   end

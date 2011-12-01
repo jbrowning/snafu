@@ -4,32 +4,43 @@ module Snafu
       hubs = []
       response = self.call("locations.getHubs")
       response["hubs"].each do |key,value|
-        hubs << {:id => key, :name => value["name"]}
+        hubs << Models::Hub.new(:id => key, :name => value["name"])
       end
-      return hubs
+      hubs
     end
 
     def get_hub(hub_id)
-      hub = nil
-      response = nil
-      streets = []
-
       response = self.call("locations.getStreets", :hub_id => hub_id)
-      hub = Models::Hub.new(:id => response["hub_id"], :name => response["name"])
-      streets = []
-      response["streets"].each do |k,v|
-        streets << {:id => k, :name => v[:name]}
-      end
-      hub.streets = streets
-      return hub
+      Models::Hub.new(response)
     end
 
     def get_street(street_id)
+      connections = []
+
       response = self.call("locations.streetInfo", :street_tsid => street_id)
-      hub = Models::Hub.new(:id => response["hub"]["id"], :name => response["hub"]["name"])
-      street = Models::Location.new(:id => response["tsid"],
-                            :name => response["name"],
-                            :hub => hub)
+
+      response["connections"].each do |street_id, street|
+        connections << Models::Street.new(
+          :id => street_id,
+          :name => street["name"],
+          :hub => Models::Hub.new(:id => street["hub"]["id"], :name => street["hub"]["name"]),
+          :mote => Models::Hub.new(:id => street["mote"]["id"], :name => street["mote"]["name"])
+        )
+      end
+
+      Models::Street.new(
+        :id => response["tsid"],
+        :name => response["name"],
+        :hub => Models::Hub.new(:id => response["hub"]["id"], :name => response["hub"]["name"]),
+        :mote => Models::Hub.new(:id => response["mote"]["id"], :name => response["mote"]["name"]),
+        :features => response["features"],
+        :image => Models::GlitchImage.new(
+          :url => response["image"]["url"],
+          :width => response["image"]["w"],
+          :height => response["image"]["h"]
+        ),
+        :connections => connections
+      )
     end
   end
 end
