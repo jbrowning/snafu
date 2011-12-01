@@ -4,7 +4,7 @@ Snafu is a Ruby gem that provides an interface to the "Glitch API":http://api.gl
 
 h2. Usage
 
-To get started, instantiate a client by passing passing in your Glitch API key.
+To get started, instantiate a client by passing in your Glitch API key.
 
 <pre>
   <code>
