@@ -6,11 +6,14 @@ Gem::Specification.new do |s|
   s.name        = "snafu"
   s.version     = Snafu::VERSION
   s.authors     = ["Jeff Browning"]
+  s.license     = 'MIT'
   s.email       = ["jeff@jkbrowning.com"]
-  s.homepage    = "http://jbrowning.org"
-  s.summary     = %q{A Ruby library for the Glitch API}
-  s.description = %q{This gem provides a convenient way to consume the Glitch 
-                  API located at http://api.glitch.com}
+  s.homepage    = "https://github.com/jbrowning/snafu"
+  s.summary     = %q{A library for the Glitch API}
+  s.description = %q{Snafu is an interface to the Glitch API. Glitch is an online 
+  multi-player game created by Tiny Speck.}
+
+  s.required_ruby_version = '>= 1.9.2'
 
   s.rubyforge_project = "snafu"
 
@@ -19,10 +22,10 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  # specify any dependencies here; for example:
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'vcr'
   s.add_development_dependency 'fakeweb'
+  s.add_development_dependency 'rake'
   s.add_runtime_dependency 'httparty', '~> 0.8'
 end
