@@ -20,6 +20,17 @@ module Snafu
       @oauth_token = options[:oauth_token]
     end
 
+    # Make a raw call to the Glitch API.
+    #
+    #   snafu = Snafu.new(:oauth_token => "some-token")
+    #   snafu.call("calendar.getHolidays")
+    #
+    # For Glitch methods which require authentication, set <tt>:authentication => true</tt>
+    #
+    #   snafu = snafu.call("players.stats", :authenticate => true)
+    #
+    # Invalid method calls will raise a <tt>GlitchAPIError</tt>
+
     def call(method, query_parameters={})
       if method.is_a? String
         options = { :format => :json }
@@ -29,6 +40,8 @@ module Snafu
             if self.oauth_token.nil?
               raise GlitchAPIError.new("You cannot do an authenticated call without an oauth token")
             end
+
+            # Replace the authenticate
             options[:query].delete(:authenticate)
             options[:query].update(:oauth_token => GLITCH_OAUTH_TOKEN)
           end
