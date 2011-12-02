@@ -19,7 +19,7 @@ module Snafu
         end
 
         it "should populate values if given the raw JSON response from HTTParty", :vcr do
-          glitch_client = Snafu.new("test-key")
+          glitch_client = Snafu.new(:api_key => GLITCH_API_KEY, :oauth_token => GLITCH_OAUTH_TOKEN)
           glitch_response = glitch_client.call("locations.getStreets", :hub_id => 27)
           new_hub = Hub.new(glitch_response)
           new_hub.streets.should_not be_nil

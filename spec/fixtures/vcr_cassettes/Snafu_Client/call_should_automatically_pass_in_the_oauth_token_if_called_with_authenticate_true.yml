@@ -1,0 +1,36 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: http://api.glitch.com:80/simple/players.status?oauth_token=cD01MzkxOCZzYz1pZGVudGl0eSZ0PTEzMjI3NjIyMTUmdT01Mzk5NSZoPWMwZjFkNWM1YmIyMWZlMTE
+    body: !!null 
+    headers: !!null 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      access-control-allow-credentials:
+      - 'false'
+      access-control-allow-methods:
+      - POST, GET, OPTIONS
+      access-control-allow-origin:
+      - ! '*'
+      access-control-max-age:
+      - '1728000'
+      cache-control:
+      - no-cache="set-cookie"
+      content-type:
+      - text/plain; charset=utf-8
+      date:
+      - Fri, 02 Dec 2011 01:57:53 GMT
+      server:
+      - Apache/2.2.17
+      set-cookie:
+      - AWSELB=F7715B6B10BD5947A6E9DAE19D6F6DD7D91A271FB7B8FD96C58B401C3F3584E3DD5A789139D245B7D2205272CFBFFB3C3AC28CFB84FD157576285C68AFF419B0FB405C0DC5;PATH=/;MAX-AGE=600
+      content-length:
+      - '35'
+      connection:
+      - Close
+    body: ! '{"ok":0,"error":"method not found"}'
+    http_version: '1.1'

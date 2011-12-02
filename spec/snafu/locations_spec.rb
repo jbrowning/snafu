@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Snafu::Locations do
   before(:each) do
-    @snafu = Snafu.new("test-key")
+    @snafu = Snafu.new(:api_key => GLITCH_API_KEY, :oauth_token => GLITCH_OAUTH_TOKEN)
     @test_hub_id = 27
     @test_hub_name = "Ix"
     @test_street_id = "LM416LNIKVLM1"

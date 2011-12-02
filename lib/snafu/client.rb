@@ -1,12 +1,8 @@
 module Snafu
   API_URL = 'http://api.glitch.com/simple'
 
-  def self.new(api_key="")
-    if api_key.is_a?(String) && !api_key.empty?
-      Snafu::Client.new(api_key)
-    else
-      raise ArgumentError.new("API key is required")
-    end
+  def self.new(options={})
+    Snafu::Client.new(options)
   end
 
   class Client
@@ -18,10 +14,10 @@ module Snafu
     
     base_uri API_URL
 
-    attr_accessor :api_key
+    attr_accessor :oauth_token
 
-    def initialize(api_key)
-      @api_key = api_key
+    def initialize(options={})
+      @oauth_token = options[:oauth_token]
     end
 
     def call(method, query_parameters={})
@@ -29,6 +25,13 @@ module Snafu
         options = { :format => :json }
         unless query_parameters.empty?
           options[:query] = query_parameters
+          if options[:query].has_key?(:authenticate) && options[:query][:authenticate] == true
+            if self.oauth_token.nil?
+              raise GlitchAPIError.new("You cannot do an authenticated call without an oauth token")
+            end
+            options[:query].delete(:authenticate)
+            options[:query].update(:oauth_token => GLITCH_OAUTH_TOKEN)
+          end
         end
         request_uri = "/#{method}"
         parse_response(self.class.get(request_uri, options))

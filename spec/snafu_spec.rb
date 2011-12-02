@@ -1,17 +1,14 @@
 require 'spec_helper'
 
 describe Snafu do
-  it "should raise an ArgumentError if supplied with no arguments" do
-    expect { Snafu.new() }.to raise_error
+  
+  it "should return a Snafu::Client object if supplied with valid parameters" do
+    glitch_client = Snafu.new({:oauth_token => GLITCH_OAUTH_TOKEN})
   end
 
-  it "should raise an ArgumentError if supplied with an empty string" do
-    expect { Snafu.new("") }.to raise_error
-  end
-
-  it "should retain the API key" do
-    test_key = "the-test-key"
-    snafu = Snafu.new(test_key)
-    snafu.api_key.should eql(test_key)
+  it "should retain the Oauth Token" do
+    test_oauth_token = GLITCH_OAUTH_TOKEN
+    glitch_client = Snafu.new(:api_key => GLITCH_API_KEY, :oauth_token => GLITCH_OAUTH_TOKEN)
+    glitch_client.oauth_token.should eql(test_oauth_token)
   end
 end

@@ -1,11 +1,13 @@
 require 'snafu'
 require 'vcr'
+require 'api_key' if File.exists?(File.dirname(__FILE__) + "/api_key.rb")
 
 VCR.config do |config|
   TWO_WEEKS = 14 * 24 * 60 * 60 # or use 7.days if you're using ActiveSupport
   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   config.stub_with :fakeweb
   config.default_cassette_options = { :re_record_interval => TWO_WEEKS }
+  #config.allow_http_connections_when_no_cassette = true
 end
 
 RSpec.configure do |config|
@@ -17,3 +19,10 @@ RSpec.configure do |config|
   end
 end
 
+if !defined? GLITCH_API_KEY
+  GLITCH_API_KEY = "testing-key"
+end
+
+if !defined? GLITCH_OAUTH_TOKEN
+  GLITCH_OAUTH_TOKEN = "testing-token"
+end
