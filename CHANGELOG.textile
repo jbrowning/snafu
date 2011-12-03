@@ -1,5 +1,5 @@
 h2. 0.1.1
-  - Fixed an issue where Hub.new would not populate steet names when given the raw result from Glitch
+* Fixed an issue where Hub.new would not populate steet names when given the raw result from Glitch
 
 h2. 0.1.0
-  - Initial release
+* Initial release
