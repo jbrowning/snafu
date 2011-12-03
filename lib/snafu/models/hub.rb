@@ -15,7 +15,7 @@ module Snafu
           @name = options["name"]
           @streets = []
           options["streets"].each do |street_id, street|
-            @streets << {:id => street_id, :name => street[:name]}
+            @streets << {:id => street_id, :name => street["name"]}
           end
         else
           @id = options[:id]

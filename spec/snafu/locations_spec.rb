@@ -34,6 +34,12 @@ describe Snafu::Locations do
       hub = @snafu.get_hub(@test_hub_id)
       hub.name.should eql(@test_hub_name)
     end
+
+    it "should return an array of valid street information if given a valid Hub ID", :vcr do
+      test_array = {:id => @test_street_id, :name => @test_street_name}
+      hub = @snafu.get_hub(@test_hub_id)
+      hub.streets.should include(test_array)
+    end
   end
 
   context "get_street" do
