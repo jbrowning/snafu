@@ -1,3 +1,3 @@
 module Snafu
-  VERSION = "0.2.0alpha"
+  VERSION = "0.1.1"
 end
