@@ -6,7 +6,7 @@ module Snafu
       attr_reader :id, :name
       # Accepts an options hash with <tt>:id</tt> or <tt>:name</tt>
       def initializer(options={})
-        @id = options[:id]
+        @id = options[:id].to_s
         @name = options[:name]
       end
       def to_s

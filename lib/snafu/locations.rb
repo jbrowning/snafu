@@ -13,6 +13,15 @@ module Snafu
       hubs
     end
 
+    # A variant of the get_hubs method which makes two calls to the Glitch API:
+    # 
+    # 1. locations.getHubs to retrieve all hubs in Glitch
+    # 2. locations.getStreets for each hub returned from locations.getHubs
+    #
+    def get_hubs!
+      # TODO
+    end
+
     # Accesses the "locations.getStreets" method from the Glitch API passing in
     # the supplied Hub ID.
     # 
