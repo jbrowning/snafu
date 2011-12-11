@@ -5,12 +5,17 @@ module Snafu
     describe Snafu::Models::Street do
       before(:each) do
         @snafu = Snafu.new(:api_key => GLITCH_API_KEY, :oauth_token => GLITCH_OAUTH_TOKEN)
-        @test_hub_id = 27
+        @test_hub_id = "27"
         @test_hub_name = "Ix"
         @test_street_id = "LM416LNIKVLM1"
         @test_street_name = "Baby Steppes"
       end
-      context "initialize()" do
+      context "#new" do
+        it "should return ID as a string" do
+          new_street = Street.new(:id => @test_hub_id)
+          new_street.id.should be_a String
+        end
+
         it "should populate values if given an options hash", :vcr do
           expected_id = "1"
           expected_name = "Some street"

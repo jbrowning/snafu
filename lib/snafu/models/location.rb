@@ -3,7 +3,7 @@ module Snafu
     # Defines a generic location class with <tt>id</tt> and <tt>name</tt> 
     # properties.
     class Location
-      attr_reader :id, :name
+      attr_reader :name
       # Accepts an options hash with <tt>:id</tt> or <tt>:name</tt>
       def initializer(options={})
         @id = options[:id].to_s
@@ -11,6 +11,9 @@ module Snafu
       end
       def to_s
         "#{self.id} - #{self.name}"
+      end
+      def id
+        @id.to_s
       end
     end
   end
