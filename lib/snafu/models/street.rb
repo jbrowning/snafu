@@ -19,11 +19,15 @@ module Snafu
             )
           end
           @mote = Hub.new(:id => options["mote"]["id"], :name => options["mote"]["name"])
-          @image = GlitchImage.new(
-            :url => options["image"]["url"],
-            :width => options["image"]["w"],
-            :height => options["image"]["h"]
-          )
+
+          unless options["image"].nil?
+            @image = GlitchImage.new(
+              :url => options["image"]["url"],
+              :width => options["image"]["w"],
+              :height => options["image"]["h"]
+            )
+          end
+
           @active_project = options["active_project"]
         else
           @id = options[:id]
