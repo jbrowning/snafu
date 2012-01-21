@@ -3,6 +3,7 @@ module Snafu
     class Street < Location
       attr_reader :hub, :connections, :mote, :features, :image, :active_project
       alias_method :active_project?, :active_project
+      alias_method :tsid, :id
       def initialize(options = {})
         if options.class == HTTParty::Response
           @id = options["tsid"]
@@ -39,6 +40,9 @@ module Snafu
           @image = options[:image]
           @active_project = options[:active_project] || false
         end
+      end
+      def to_s
+        "Glitch Street: #{self.id} - #{self.name}"
       end
     end
   end

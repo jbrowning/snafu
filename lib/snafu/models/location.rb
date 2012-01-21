@@ -9,11 +9,11 @@ module Snafu
         @id = options[:id].to_s
         @name = options[:name]
       end
-      def to_s
-        "#{self.id} - #{self.name}"
-      end
       def id
         @id.to_s
+      end
+      def to_s
+        "Glitch Generic Location: ID: #{self.id} - Name: #{self.name}"
       end
     end
   end

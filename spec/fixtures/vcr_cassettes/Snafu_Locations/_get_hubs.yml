@@ -1,0 +1,39 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: http://api.glitch.com:80/simple/locations.getHubs
+    body: !!null 
+    headers: !!null 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      access-control-allow-credentials:
+      - 'false'
+      access-control-allow-methods:
+      - POST, GET, OPTIONS
+      access-control-allow-origin:
+      - ! '*'
+      access-control-max-age:
+      - '1728000'
+      cache-control:
+      - no-cache="set-cookie"
+      content-type:
+      - text/plain; charset=utf-8
+      date:
+      - Sat, 21 Jan 2012 02:51:20 GMT
+      server:
+      - Apache/2.2.17
+      set-cookie:
+      - AWSELB=F7715B6B10BD5947A6E9DAE19D6F6DD7D91A271FB72425AACF721F93EFB59EE8F50B3C50B18757614F2C00FAEA1959FA31DEAB826E29DE71D466A9A667E8337D330C8E0942;PATH=/;MAX-AGE=600
+      content-length:
+      - '702'
+      connection:
+      - Close
+    body: ! '{"ok":1,"hubs":{"27":{"name":"Ix"},"50":{"name":"Ilmenskie Caverns"},"51":{"name":"Uralia"},"56":{"name":"Groddle
+      Forest"},"58":{"name":"Groddle Meadow"},"63":{"name":"Shimla Mirch"},"64":{"name":"Groddle
+      Heights"},"71":{"name":"Jethimadh"},"72":{"name":"Chakra Phool"},"75":{"name":"Bortola"},"76":{"name":"Alakol"},"78":{"name":"Ilmenskie
+      Deeps"},"85":{"name":"Kajuu"},"86":{"name":"Baqala"},"89":{"name":"Andra"},"90":{"name":"Choru"},"91":{"name":"Zhambu"},"92":{"name":"Tamila"},"93":{"name":"Salatu"},"95":{"name":"Xalanga"},"97":{"name":"Muufo"},"98":{"name":"Besara"},"99":{"name":"Kalavana"},"101":{"name":"Aranna"},"106":{"name":"Pollokoo"},"107":{"name":"Callopee"},"109":{"name":"Rasana"}}}'
+    http_version: '1.1'

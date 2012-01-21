@@ -3,7 +3,7 @@ module Snafu
     # Defines a class for Glitch Hubs, which are the various regions in the game.
     # 
     class Hub < Location
-      attr_reader :streets
+      attr_reader :streets, :id
       
       # Accepts either the raw JSON-formatted response from the HTTParty get request or an options
       # hash.
@@ -15,7 +15,7 @@ module Snafu
           @name = options["name"]
           @streets = []
           options["streets"].each do |street_id, street|
-            @streets << {:id => street_id, :name => street["name"]}
+            @streets << Street.new(:id => street_id, :name => street["name"])
           end
         else
           @id = options[:id]
@@ -26,6 +26,9 @@ module Snafu
             @streets = [options[:streets]]
           end
         end
+      end
+      def to_s
+        "Glitch Hub - ID: #{self.id} Name: #{self.name}"
       end
     end
   end

@@ -13,6 +13,7 @@ end
 RSpec.configure do |config|
   config.filter_run_excluding :broken => true
   config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.extend VCR::RSpec::Macros
   config.around(:each, :vcr) do |example|
     name = example.metadata[:full_description].split(/\s+/, 2).join("/").gsub(/[^\w\/]+/, "_")
     VCR.use_cassette(name) { example.call }
