@@ -5,7 +5,7 @@ describe Snafu::Client do
     @snafu = Snafu.new(:api_key => GLITCH_API_KEY, :oauth_token => GLITCH_OAUTH_TOKEN)
   end
 
-  describe 'call()' do
+  describe '#call' do
     it 'should receive a successful response from the Glitch API if given an valid method', :vcr do
       VCR.use_cassette "calendar.getHoldays/valid_calendar" do
         result = @snafu.call("calendar.getHolidays")
@@ -27,15 +27,15 @@ describe Snafu::Client do
     it "should automatically pass in the oauth token if called with authenticate", :vcr do
       expect { response = @snafu.call("players.stats", :authenticate => true) }.to_not raise_exception
     end
+
+
+    context "without oauth token" do
+      it "should raise a GlitchAPIError if trying to do an authenticated call without an oauth token" do
+        snafu = Snafu.new()
+        expect { snafu.call("secureMethod", :authenticate => true) }.to raise_error(Snafu::GlitchAPIError, /oauth token/)
+      end        
+    end
+
   end
 
-  context "authentication" do
-    describe "call()" do
-      context "without oauth token"
-        it "should raise a GlitchAPIError if trying to do an authenticated call without an oauth token" do
-          snafu = Snafu.new()
-          expect { snafu.call("secureMethod", :authenticate => true) }.to raise_error(Snafu::GlitchAPIError, /oauth token/)
-        end
-    end
-  end
 end

@@ -9,7 +9,7 @@ describe Snafu::Locations do
     @test_street_name = "Baby Steppes"
   end
 
-  context "get_hubs()" do
+  context "#get_hubs" do
     before(:each) do
       @hubs = @snafu.get_hubs
     end
@@ -29,7 +29,7 @@ describe Snafu::Locations do
     end
   end
 
-  context "get_hub" do
+  context "#get_hub" do
     it "should return a valid hub if given a valid Hub ID", :vcr do
       hub = @snafu.get_hub(@test_hub_id)
       hub.name.should eql(@test_hub_name)
@@ -42,7 +42,7 @@ describe Snafu::Locations do
     end
   end
 
-  context "get_street" do
+  context "#get_street" do
     before(:each) do
       @test_street = @snafu.get_street(@test_street_id)
     end

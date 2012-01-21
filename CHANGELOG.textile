@@ -1,3 +1,6 @@
+h2. 0.2.0
+* Hub#streets now contains an array of Street objects, hashes
+
 h2. 0.1.2
 * Glitch Locations (Hubs, Streets, etc.) may have strings or integers for their IDs. Street#id,  and Hub#id now always return a String
 
