@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Snafu
   module Models
-    describe Snafu::Models::GlitchImage do
+    describe GlitchImage do
       let(:valid_image) { GlitchImage.new(:url => "http://example.com", :width => 100, :height => 100) }
       context "initialize()" do
         it "should retain all parameters" do

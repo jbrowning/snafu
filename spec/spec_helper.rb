@@ -27,3 +27,13 @@ end
 if !defined? GLITCH_OAUTH_TOKEN
   GLITCH_OAUTH_TOKEN = "testing-token"
 end
+
+# Handy time and date calculations
+class Numeric
+  def milliseconds; self/1000.0; end
+  def seconds; self; end
+  def minutes; self*60; end
+  def hours; self*60*60; end
+  def days; self*60*60*24; end
+  def weeks; self*60*60*24*7; end
+end
