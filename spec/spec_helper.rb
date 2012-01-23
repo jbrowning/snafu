@@ -1,5 +1,6 @@
 require 'snafu'
 require 'vcr'
+require 'timecop'
 require 'api_key' if File.exists?(File.dirname(__FILE__) + "/api_key.rb")
 
 VCR.config do |config|
