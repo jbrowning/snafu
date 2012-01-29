@@ -7,10 +7,8 @@ describe Snafu::Client do
 
   describe '#call' do
     it 'should receive a successful response from the Glitch API if given an valid method', :vcr do
-      VCR.use_cassette "calendar.getHoldays/valid_calendar" do
-        result = @snafu.call("calendar.getHolidays")
-        result['ok'].should eql(1)
-      end
+      result = @snafu.call("calendar.getHolidays")
+      result['ok'].should eql(1)
     end
 
     it 'should raise a GlitchAPIError if receiving an unsucessful response from the Glitch API', :vcr do
@@ -24,8 +22,7 @@ describe Snafu::Client do
       result["name"].should eql(hub_name)
     end
     
-    it "should automatically pass in the oauth token if called with authenticate" do
-      pending
+    it "should automatically pass in the oauth token if called with authenticate", :vcr do
       expect { response = @snafu.call("players.stats", :authenticate => true) }.to_not raise_exception
     end
 
