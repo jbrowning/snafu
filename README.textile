@@ -1,20 +1,54 @@
 h1. Snafu
 
-Snafu is a Ruby gem that provides an interface to the "Glitch API":http://api.glitch.com. "Glitch":http://glitch.com is an online multi-player game created by Tiny Speck and provides a decent API for interacting with its world.
+Snafu is a Ruby gem that provides an interface to the "API":http://api.glitch.com for "Glitch":http://glitch.com, a browser-based MMO created by "Tiny Speck":http://tinyspeck.com.
+
+h2. API Support
+
+h3. Currently Supported
+
+* In-Game Time & Date (See the GlitchTime class for more info)
+* Locations
+** locations.getHubs (Snafu::Locations#get_hubs)
+** locations.getStreets (Snafu::Locations#get_hub)
+** locations.streetInfo (Snafu::Locations#get_street)
+
+h3. Not Yet Supported
+
+* Achievements
+* Auctions
+* Avatar
+* Players
+* Skills
 
 h2. Usage
 
-To get started, instantiate a client by passing in an optional oauth token of an authenticated user. Be sure to pass in an OAuth token with the appropriate scope level for API method you wish to call.
+To get started, instantiate the client with either no options or with the OAuth token of an authenticated user if 'identity' scope or higher is required.
 
 <pre lang="ruby">
     snafu = Snafu.new(:oauth_token => "your-oauth-token")
 </pre>
 
-Snafu currently does not support Glitch's OAuth authentication. There are other gems that support authenticating with Glitch including the excellent "OmniAuth":https://github.com/intridea/omniauth.
+Snafu currently does not support Glitch's OAuth authentication. There are other gems that support authenticating with Glitch such as "OmniAuth":https://github.com/intridea/omniauth.
 
-h3. Supported Methods
+h3. In-Game Time & Date
 
-Currently, only the locations.* methods are supported via helper methods. Each method returns a Ruby object representing the returned data.
+Note that the hour, minute, day of week, day of year, and day of month are all zero-based.
+
+To get the current in-game date and time:
+
+<pre lang="ruby">
+    current_time = Snafu::Models::GlitchTime.new
+    current_time.year
+    => 20
+    current_time.month
+    => "Spork"
+    current_time.day
+    => "Hairday"
+</pre>
+
+h3. Locations (no auth required)
+
+Currently, only the locations.* methods are supported. Each method returns a Ruby object representing the returned data.
 
 <pre lang="ruby">
     # locations.*
@@ -23,9 +57,11 @@ Currently, only the locations.* methods are supported via helper methods. Each m
     street = snafu.get_street(street_tsid) # "locations.streetInfo"
 </pre>
 
-The rest of the API will be supported in due time.
+h3. Manual Method Calls
 
-You can also receive raw data from the Glitch API by passing in any method as a string and supplying required parameters via an options hash. This returns a Hash representation of the JSON returned by Glitch:
+You can also receive raw data from the Glitch API by passing any method name into #call and supplying any required parameters via an options hash. This returns a Hash representation of the JSON returned by Glitch.
+
+For example, to manually call the Glitch *calendar.getholidays* method:
 
 <pre lang="ruby">
     snafu.call("calendar.getHolidays")
@@ -63,3 +99,7 @@ You can also receive raw data from the Glitch API by passing in any method as a 
     => }
 </pre>
 
+h2. Credits
+
+"Jeff Browning":http://github.com/jbrowning - Original author
+"Lee Jensen":https://github.com/outerim - Contributions to GlitchTime

@@ -62,7 +62,5 @@ module Snafu
     end
   end
 
-
-
   class GlitchAPIError < StandardError;end
 end
