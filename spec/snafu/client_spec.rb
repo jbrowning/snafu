@@ -28,12 +28,19 @@ describe Snafu::Client do
 
 
     context "without oauth token" do
-      it "should raise a GlitchAPIError if trying to do an authenticated call without an oauth token" do
+      it "should raise a GlitchAPIError if trying to do an authenticated call without an oauth token", :vcr do
         snafu = Snafu.new()
         expect { snafu.call("secureMethod", :authenticate => true) }.to raise_error(Snafu::GlitchAPIError, /oauth token/)
       end        
     end
+  end
 
+  describe "#last_request_result" do
+    it "should return the raw contents of the last request result" do
+      use_vcr_cassette 
+      result = @snafu.call("calendar.getHolidays")
+      @snafu.last_request_result.should eql(result)
+    end
   end
 
 end
