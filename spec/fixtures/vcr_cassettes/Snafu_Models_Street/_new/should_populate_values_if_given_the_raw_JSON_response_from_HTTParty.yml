@@ -1,0 +1,44 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://api.glitch.com/simple/locations.streetInfo?street_tsid=LM416LNIKVLM1
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      connection: 
+      - close
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      access-control-allow-credentials: 
+      - "false"
+      access-control-allow-methods: 
+      - POST, GET, OPTIONS
+      access-control-allow-origin: 
+      - "*"
+      access-control-max-age: 
+      - "1728000"
+      cache-control: 
+      - no-cache="set-cookie"
+      content-type: 
+      - text/plain; charset=utf-8
+      date: 
+      - Tue, 22 May 2012 03:55:17 GMT
+      server: 
+      - Apache/2.2.17
+      set-cookie: 
+      - AWSELB=F7715B6B10BD5947A6E9DAE19D6F6DD7D91A271FB7C65A13E6B150AA38A20996585FE1291DFEAD0D0B4040C059574EBB54E6530F35596717BED4B680B2E15243031043DF41;PATH=/;MAX-AGE=600
+      content-length: 
+      - "662"
+      connection: 
+      - Close
+    body: 
+      encoding: US-ASCII
+      string: "{\"ok\":1,\"tsid\":\"LM416LNIKVLM1\",\"name\":\"Baby Steppes\",\"hub\":{\"id\":27,\"name\":\"Ix\"},\"mote\":{\"id\":9,\"name\":\"Ur\"},\"active_project\":false,\"features\":[\"<b>4 Piggies<\\/b>, <b>1 Butterfly<\\/b>, <b>7 Chickens<\\/b>, and <b>6 Spice Plants<\\/b>.\"],\"connections\":{\"LM4115NJ46G8M\":{\"name\":\"Groddle Ladder\",\"hub\":{\"id\":27,\"name\":\"Ix\"},\"mote\":{\"id\":9,\"name\":\"Ur\"}},\"LM410TMR0S2S1\":{\"name\":\"Ruta Asuncion\",\"hub\":{\"id\":27,\"name\":\"Ix\"},\"mote\":{\"id\":9,\"name\":\"Ur\"}},\"LM4109NI2R640\":{\"name\":\"Guillermo Gamera Way\",\"hub\":{\"id\":27,\"name\":\"Ix\"},\"mote\":{\"id\":9,\"name\":\"Ur\"}}},\"image\":{\"url\":\"http:\\/\\/c2.glitch.bz\\/streets\\/2012-02-23\\/LM416LNIKVLM1_main_1330066974.jpg\",\"w\":720,\"h\":120}}"
+    http_version: "1.1"
+  recorded_at: Tue, 22 May 2012 03:55:17 GMT
+recorded_with: VCR 2.1.1

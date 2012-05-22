@@ -1,0 +1,44 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://api.glitch.com/simple/calendar.getHolidays
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      connection: 
+      - close
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      access-control-allow-credentials: 
+      - "false"
+      access-control-allow-methods: 
+      - POST, GET, OPTIONS
+      access-control-allow-origin: 
+      - "*"
+      access-control-max-age: 
+      - "1728000"
+      cache-control: 
+      - no-cache="set-cookie"
+      content-type: 
+      - text/plain; charset=utf-8
+      date: 
+      - Tue, 22 May 2012 03:57:57 GMT
+      server: 
+      - Apache/2.2.17
+      set-cookie: 
+      - AWSELB=F7715B6B10BD5947A6E9DAE19D6F6DD7D91A271FB72425AACF721F93EFB59EE8F50B3C50B18757614F2C00FAEA1959FA31DEAB826E29DE71D466A9A667E8337D330C8E0942;PATH=/;MAX-AGE=600
+      content-length: 
+      - "438"
+      connection: 
+      - Close
+    body: 
+      encoding: US-ASCII
+      string: "{\"ok\":1,\"days\":[{\"month\":1,\"day\":5,\"name\":\"AlphCon\"},{\"month\":2,\"day\":2,\"name\":\"Lemadan\"},{\"month\":3,\"day\":3,\"name\":\"Pot Twoday\"},{\"month\":4,\"day\":2,\"name\":\"Root\"},{\"month\":4,\"day\":3,\"name\":\"Root\"},{\"month\":4,\"day\":4,\"name\":\"Root\"},{\"month\":4,\"day\":11,\"name\":\"Sprinkling\"},{\"month\":6,\"day\":17,\"name\":\"Croppaday\"},{\"month\":7,\"day\":1,\"name\":\"Belabor Day\"},{\"month\":8,\"day\":37,\"name\":\"Zilloween\"},{\"month\":11,\"day\":11,\"name\":\"Recurse Eve\"}]}"
+    http_version: "1.1"
+  recorded_at: Tue, 22 May 2012 03:57:57 GMT
+recorded_with: VCR 2.1.1

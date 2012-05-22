@@ -1,0 +1,44 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://api.glitch.com/simple/players.stats?oauth_token=dj0xJmk9Mjg3MzgmYz03NDZmMDYyM2M1ODQ4YmVjMGY2OWZhOTY1YWM0NTZhMw
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      connection: 
+      - close
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      access-control-allow-credentials: 
+      - "false"
+      access-control-allow-methods: 
+      - POST, GET, OPTIONS
+      access-control-allow-origin: 
+      - "*"
+      access-control-max-age: 
+      - "1728000"
+      cache-control: 
+      - no-cache="set-cookie"
+      content-type: 
+      - text/plain; charset=utf-8
+      date: 
+      - Tue, 22 May 2012 03:55:07 GMT
+      server: 
+      - Apache/2.2.17
+      set-cookie: 
+      - AWSELB=F7715B6B10BD5947A6E9DAE19D6F6DD7D91A271FB7C136A73584C8A9C7D99844891B9CE40943A67B18C55CD05576680FE8CB8ED1442E532BB1DB467DE7995571EE672126B5;PATH=/;MAX-AGE=600
+      content-length: 
+      - "116"
+      connection: 
+      - Close
+    body: 
+      encoding: US-ASCII
+      string: "{\"ok\":1,\"level\":11,\"xp\":1160,\"xp_max\":10815,\"currants\":5659,\"energy\":242,\"energy_max\":250,\"mood\":206,\"mood_max\":250}"
+    http_version: "1.1"
+  recorded_at: Tue, 22 May 2012 03:55:07 GMT
+recorded_with: VCR 2.1.1

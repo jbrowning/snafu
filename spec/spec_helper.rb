@@ -3,22 +3,19 @@ require 'vcr'
 require 'timecop'
 require 'api_key' if File.exists?(File.dirname(__FILE__) + "/api_key.rb")
 
-VCR.config do |config|
-  config.allow_http_connections_when_no_cassette = false
-  config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
-  config.stub_with :fakeweb
+VCR.configure do |c|
+  c.allow_http_connections_when_no_cassette = false
+  c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+  c.hook_into :fakeweb
+  c.configure_rspec_metadata!
   #TWO_WEEKS = 14 * 24 * 60 * 60
-  #config.default_cassette_options = { :re_record_interval => TWO_WEEKS }
+  #c.default_cassette_options = { :re_record_interval => TWO_WEEKS }
 end
 
 RSpec.configure do |config|
   config.filter_run_excluding :broken => true
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.extend VCR::RSpec::Macros
-  config.around(:each, :vcr) do |example|
-    name = example.metadata[:full_description].split(/\s+/, 2).join("/").gsub(/[^\w\/]+/, "_")
-    VCR.use_cassette(name) { example.call }
-  end
 end
 
 if !defined? GLITCH_API_KEY

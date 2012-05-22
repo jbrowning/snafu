@@ -36,8 +36,7 @@ describe Snafu::Client do
   end
 
   describe "#last_request_result" do
-    it "should return the raw contents of the last request result" do
-      use_vcr_cassette 
+    it "should return the raw contents of the last request result", :vcr do 
       result = @snafu.call("calendar.getHolidays")
       @snafu.last_request_result.should eql(result)
     end
