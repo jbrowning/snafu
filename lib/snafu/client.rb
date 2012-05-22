@@ -11,6 +11,7 @@ module Snafu
     
     # include other classes & modules so they can be called on the returned client object
     include Snafu::Locations
+    include Snafu::Achievements
     
     base_uri API_URL
 
