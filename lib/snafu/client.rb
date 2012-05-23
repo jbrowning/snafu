@@ -15,7 +15,7 @@ module Snafu
     
     base_uri API_URL
 
-    attr_accessor :oauth_token
+    attr_accessor :oauth_token, :last_request_result
 
     def initialize(options={})
       @oauth_token = options[:oauth_token]
@@ -33,31 +33,32 @@ module Snafu
     # Invalid method calls will raise a <tt>GlitchAPIError</tt>
 
     def call(method, query_parameters={})
-      if method.is_a? String
-        options = { :format => :json }
-        unless query_parameters.empty?
-          options[:query] = query_parameters
-          if options[:query].has_key?(:authenticate) && options[:query][:authenticate] == true
-            if self.oauth_token.nil?
-              raise GlitchAPIError.new("You cannot do an authenticated call without an oauth token")
-            end
-
-            # Replace the authenticate
-            options[:query].delete(:authenticate)
-            options[:query].update(:oauth_token => GLITCH_OAUTH_TOKEN)
-          end
-        end
-        request_uri = "/#{method}"
-        parse_response(self.class.get(request_uri, options))
-      else
+      unless method.is_a? String
         raise ArgumentError.new("Method argument must be a string")
       end
+
+      options = { :format => :json }
+      unless query_parameters.empty?
+        options[:query] = query_parameters
+        if options[:query].has_key?(:authenticate) && options[:query][:authenticate] == true
+          if self.oauth_token.nil?
+            raise GlitchAPIError.new("You cannot do an authenticated call without an oauth token")
+          end
+
+          # Replace the authenticate
+          options[:query].delete(:authenticate)
+          options[:query].update(:oauth_token => GLITCH_OAUTH_TOKEN)
+        end
+      end
+      request_uri = "/#{method}"
+      parse_response(self.class.get(request_uri, options))
     end
 
     def parse_response(response)
       if response["ok"] == 0
         raise GlitchAPIError.new(response["error"])
       else
+        @last_request_result = response
         response
       end
     end

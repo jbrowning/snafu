@@ -46,15 +46,25 @@ To get the current in-game date and time:
     => "Hairday"
 </pre>
 
-h3. Locations (no auth required)
+h3. Locations
 
-Currently, only the locations.* methods are supported. Each method returns a Ruby object representing the returned data.
+All locations.* methods are supported. Each method returns a Ruby object representing the returned data.
 
 <pre lang="ruby">
     # locations.*
     hubs = snafu.get_hubs # "locations.getHubs"
     hub = snafu.get_hub(hub_id) # "locations.getStreets"
     street = snafu.get_street(street_tsid) # "locations.streetInfo"
+</pre>
+
+h3. Achievements
+
+<pre lang="ruby">
+    achievements = snafu.get_achievements # "achievements.listAll"
+    achievements.first.name
+    => "1-Star Cuisinartist"
+    achievements.first.desc
+    => "Whipped up 11 meals with an Awesome Pot"
 </pre>
 
 h3. Manual Method Calls
