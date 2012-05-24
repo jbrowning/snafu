@@ -82,8 +82,20 @@ module Snafu
       end
 
       # Returns the minute of the hour
-      def minute
-        (seconds_since_start_of_hour / M_SECS).to_i
+      #
+      # == Options
+      # 
+      # +:padded+ - If true, will return a zero-padded string if the minute value is less than 10
+      def minute(padded = false)
+        min = (seconds_since_start_of_hour / M_SECS).to_i
+        if padded && min < 10
+          min = "0#{min}"
+        end
+        min
+      end
+
+      def to_s
+        "#{self.hour}:#{self.minute(padded: true)}, #{self.name_of_day} #{self.day_of_month + 1} of #{self.name_of_month}, year #{self.year}"
       end
 
       private

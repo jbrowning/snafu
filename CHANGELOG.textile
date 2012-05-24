@@ -1,8 +1,10 @@
 h2. 0.2.0
-* Hub#streets now contains an array of Street objects, hashes
+* Hub#streets now contains an array of Street objects
+* Support for in-game Date & Time
+* Support for the "achievements.listAll" method
 
 h2. 0.1.2
-* Glitch Locations (Hubs, Streets, etc.) may have strings or integers for their IDs. Street#id,  and Hub#id now always return a String
+* Glitch Locations (Hubs, Streets, etc.) may have strings or integers for their IDs. Street#id,  and Hub#id now always returns a String
 
 h2. 0.1.1
 * Fixed an issue where Hub.new would not populate steet names when given the raw result from Glitch

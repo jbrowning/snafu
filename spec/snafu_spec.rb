@@ -11,4 +11,5 @@ describe Snafu do
     glitch_client = Snafu.new(:api_key => GLITCH_API_KEY, :oauth_token => GLITCH_OAUTH_TOKEN)
     glitch_client.oauth_token.should eql(test_oauth_token)
   end
+
 end

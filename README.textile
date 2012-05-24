@@ -37,7 +37,7 @@ Note that the hour, minute, day of week, day of year, and day of month are all z
 To get the current in-game date and time:
 
 <pre lang="ruby">
-    current_time = Snafu::Models::GlitchTime.new
+    current_time = snafu.glitch_time
     current_time.year
     => 20
     current_time.month

@@ -132,6 +132,24 @@ module Snafu
             time.minute.should == minute
           end
         end
+
+        it "should pad the minute if passed the :padded => true option" do
+          10.times do
+            time = random_time
+            while time.minute >= 10 do
+              time = random_time
+            end
+            time.minute(padded: true).to_s.should match(/\A0\d\z/)
+          end
+        end
+      end
+
+      describe "#to_s" do
+        it "should display the full time" do
+          time = GlitchTime.new
+          pattern_string = "#{time.hour}:#{time.minute(padded: true)}, #{time.name_of_day} #{time.day_of_month + 1} of #{time.name_of_month}, year #{time.year}"
+          time.to_s.should match(pattern_string)
+        end
       end
 
       def day_of_year_for_first_day_of_month(month_number)
@@ -148,6 +166,10 @@ module Snafu
           seconds_in_previous_days = (days_in_month[0..month_number-1].inject(:+)) * secs_in_game_day
         end
         glitch_epoch + seconds_in_previous_days
+      end
+
+      def random_time(seed = 1000)
+        GlitchTime.new(glitch_epoch + rand(1000))
       end
     end
   end

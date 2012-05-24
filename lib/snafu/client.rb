@@ -12,7 +12,8 @@ module Snafu
     # include other classes & modules so they can be called on the returned client object
     include Snafu::Locations
     include Snafu::Achievements
-    
+    include Snafu::Util
+
     base_uri API_URL
 
     attr_accessor :oauth_token, :last_request_result
@@ -31,7 +32,6 @@ module Snafu
     #   snafu = snafu.call("players.stats", :authenticate => true)
     #
     # Invalid method calls will raise a <tt>GlitchAPIError</tt>
-
     def call(method, query_parameters={})
       unless method.is_a? String
         raise ArgumentError.new("Method argument must be a string")
