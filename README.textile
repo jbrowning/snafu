@@ -7,6 +7,8 @@ h2. API Support
 h3. Currently Supported
 
 * In-Game Time & Date (See the GlitchTime class for more info)
+* Giants
+** giants.list (Snafu::Giants#get_giants)
 * Locations
 ** locations.getHubs (Snafu::Locations#get_hubs)
 ** locations.getStreets (Snafu::Locations#get_hub)
@@ -44,6 +46,15 @@ To get the current in-game date and time:
     => "Spork"
     current_time.day
     => "Hairday"
+</pre>
+
+h3. Giants
+
+<pre lang="ruby">
+    # giants.list
+    giants = snafu.get_giants
+    giants.first.name
+    => "Alph"
 </pre>
 
 h3. Locations

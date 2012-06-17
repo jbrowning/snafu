@@ -3,7 +3,7 @@ require 'spec_helper'
 module Snafu
   module Models
     describe Snafu::Models::Hub do
-      context "initialize()" do
+      describe "#initialize" do
         it "should populate values if given an options hash" do
           expected_id = "1"
           expected_name = "Some Hub"

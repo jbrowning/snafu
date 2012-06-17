@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Snafu::Locations do
-  before(:all) do
+  before(:each) do
     @snafu = Snafu.new(:api_key => GLITCH_API_KEY, :oauth_token => GLITCH_OAUTH_TOKEN)
   end
 
@@ -22,7 +22,7 @@ describe Snafu::Locations do
       hubs.first.should be_a Snafu::Models::Hub
     end
 
-    it "should populated the returned Hub objects with an id and name", :vcr do
+    it "should populate the returned Hub objects with an id and name", :vcr do
       first_hub = hubs.first
       first_hub.id.should_not be_nil
       first_hub.name.should_not be_nil

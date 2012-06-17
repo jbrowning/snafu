@@ -9,9 +9,10 @@ module Snafu
     # it's p-p-p-party time
     include HTTParty
     
-    # include other classes & modules so they can be called on the returned client object
+    # include other classes & modules so they can be called on self
     include Snafu::Locations
     include Snafu::Achievements
+    include Snafu::Giants
     include Snafu::Util
 
     base_uri API_URL
