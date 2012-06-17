@@ -10,8 +10,7 @@ Gem::Specification.new do |s|
   s.email       = ["jeff@jkbrowning.com"]
   s.homepage    = "https://github.com/jbrowning/snafu"
   s.summary     = %q{A library for the Glitch API}
-  s.description = %q{Snafu is an interface to API for Glitch, an online multi-player
-    game created by Tiny Speck.}
+  s.description = %q{Snafu is a Ruby gem that provides an interface to the API for Glitch, a browser-based MMO created by Tiny Speck.}
 
   s.required_ruby_version = '>= 1.9.2'
 
