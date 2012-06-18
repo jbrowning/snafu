@@ -13,23 +13,23 @@ module Snafu
 
         it "should populate values if given an options hash" do
           expected_name = random_giant
-          expected_current_favor = rand(1000)
-          expected_max_favor = expected_current_favor + 1
-          expected_current_daily_favor = rand(1000)
-          expected_max_daily_favor = expected_current_daily_favor + 1
+          expected_cur_favor = rand(1000)
+          expected_max_favor = expected_cur_favor + 1
+          expected_cur_daily_favor = rand(1000)
+          expected_max_daily_favor = expected_cur_daily_favor + 1
 
           giant = Giant.new(
             :name => expected_name,
-            :current_favor => expected_current_favor,
-            :max_favor => expected_max_favor,
-            :current_daily_favor => expected_current_daily_favor,
-            :max_daily_favor => expected_max_daily_favor
+            :cur_favor => expected_cur_favor.to_s,
+            :max_favor => expected_max_favor.to_s,
+            :cur_daily_favor => expected_cur_daily_favor.to_s,
+            :max_daily_favor => expected_max_daily_favor.to_s
           )
 
           giant.name.should eql(expected_name)
-          giant.current_favor.should eql(expected_current_favor)
+          giant.cur_favor.should eql(expected_cur_favor)
           giant.max_favor.should eql(expected_max_favor)
-          giant.current_daily_favor.should eql(expected_current_daily_favor)
+          giant.cur_daily_favor.should eql(expected_cur_daily_favor)
           giant.max_daily_favor.should eql(expected_max_daily_favor)
         end
       end

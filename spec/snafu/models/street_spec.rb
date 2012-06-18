@@ -4,7 +4,7 @@ module Snafu
   module Models
     describe Snafu::Models::Street do
       before(:each) do
-        @snafu = Snafu.new(:api_key => GLITCH_API_KEY, :oauth_token => GLITCH_OAUTH_TOKEN)
+        @snafu = Snafu.new
         @test_hub_id = "27"
         @test_hub_name = "Ix"
         @test_street_id = "LM416LNIKVLM1"

@@ -43,12 +43,12 @@ module Snafu
         options[:query] = query_parameters
         if options[:query].has_key?(:authenticate) && options[:query][:authenticate] == true
           if self.oauth_token.nil?
-            raise GlitchAPIError.new("You cannot do an authenticated call without an oauth token")
+            raise GlitchAuthenticationError.new("You cannot perform an authenticated call without an oauth token")
           end
 
-          # Replace the authenticate
+          # Replace the authenticate key with the oauth token
           options[:query].delete(:authenticate)
-          options[:query].update(:oauth_token => GLITCH_OAUTH_TOKEN)
+          options[:query].update(:oauth_token => @oauth_token)
         end
       end
       request_uri = "/#{method}"
@@ -56,8 +56,16 @@ module Snafu
     end
 
     def parse_response(response)
-      if response["ok"] == 0
-        raise GlitchAPIError.new(response["error"])
+      if response["error"] == "invalid_token"
+        raise GlitchAuthenticationError.new("Invalid Token")
+      elsif response["ok"] == 0
+        if response["error"] == "missing_scope"
+          raise GlitchAuthenticationError.new("The token supplied has insufficient scope for this API method")
+        elsif response["error"] == "not_authenticated"
+          raise GlitchAuthenticationError.new("This API method requires authentication and no OAuth token has been supplied")
+        else
+          raise GlitchAPIError.new(response["error"])
+        end
       else
         @last_request_result = response
         response
@@ -66,4 +74,5 @@ module Snafu
   end
 
   class GlitchAPIError < StandardError;end
+  class GlitchAuthenticationError < StandardError;end
 end

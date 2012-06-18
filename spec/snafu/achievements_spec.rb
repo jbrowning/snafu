@@ -22,7 +22,7 @@ describe Snafu::Achievements do
     end
 
     it "should return an array of the same size as the total number of achievements" do
-      VCR.use_cassette("achievements.listAll") do
+      VCR.use_cassette("achievements.listAll", :record => :new_episodes) do
         all_achievements = @snafu.get_achievements
         achievements_count = @snafu.last_request_result["total"]
         all_achievements.count.should eql(achievements_count)

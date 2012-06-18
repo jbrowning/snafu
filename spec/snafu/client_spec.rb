@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Snafu::Client do
   before(:each) do
-    @snafu = Snafu.new(:api_key => GLITCH_API_KEY, :oauth_token => GLITCH_OAUTH_TOKEN)
+    @snafu = Snafu.new
   end
 
   describe '#call' do
@@ -22,16 +22,34 @@ describe Snafu::Client do
       result["name"].should eql(hub_name)
     end
     
-    it "should automatically pass in the oauth token if called with authenticate", :vcr do
-      expect { response = @snafu.call("players.stats", :authenticate => true) }.to_not raise_exception
+    if defined? GLITCH_OAUTH_READ_TOKEN
+      it "should automatically pass in the oauth token if called with authenticate", :vcr do
+        snafu = Snafu.new(:oauth_token => GLITCH_OAUTH_READ_TOKEN)
+        expect { response = snafu.call("players.stats", :authenticate => true) }.to_not raise_exception
+      end
     end
 
-
-    context "without oauth token" do
-      it "should raise a GlitchAPIError if trying to do an authenticated call without an oauth token", :vcr do
+    context "authentication" do
+      it "should raise a GlitchAuthenticationError if trying to perform an authenticated call without an oauth token", :vcr do
         snafu = Snafu.new()
-        expect { snafu.call("secureMethod", :authenticate => true) }.to raise_error(Snafu::GlitchAPIError, /oauth token/)
-      end        
+        expect { snafu.call("secureMethod", :authenticate => true) }.to raise_error(Snafu::GlitchAuthenticationError, /oauth token/)
+      end
+
+      it "should raise a GlitchAuthenticationError if calling the API with an invalid OAuth token", :vcr, :record => :all do
+        snafu = Snafu.new(:oauth_token => "invalid token")
+        expect { snafu.call("giants.getFavor", :authenticate => true) }.to raise_error(Snafu::GlitchAuthenticationError, /invalid token/i)
+      end
+
+      it 'should raise a GlitchAuthenticationError if calling an authenticated API method without a token', :vcr do
+        expect { @snafu.call("giants.getFavor") }.to raise_error(Snafu::GlitchAuthenticationError)
+      end
+
+      if defined? GLITCH_OAUTH_READ_TOKEN
+        it "should raise a GlitchAuthenticationError if calling a method that requires a higher scope", :vcr do
+          snafu = Snafu.new(:oauth_token => GLITCH_OAUTH_IDENTITY_TOKEN)
+          expect { snafu.call("giants.getFavor", :authenticate => true) }.to raise_error(/insufficient scope/)
+        end
+      end
     end
   end
 

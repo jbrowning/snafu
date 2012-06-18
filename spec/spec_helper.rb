@@ -18,14 +18,6 @@ RSpec.configure do |config|
   config.extend VCR::RSpec::Macros
 end
 
-if !defined? GLITCH_API_KEY
-  GLITCH_API_KEY = "testing-key"
-end
-
-if !defined? GLITCH_OAUTH_TOKEN
-  GLITCH_OAUTH_TOKEN = "testing-token"
-end
-
 # Handy time and date calculations
 class Numeric
   def milliseconds; self/1000.0; end

@@ -19,5 +19,4 @@ describe Snafu::Util do
       glitch_time.timestamp.should eql(direct_time.timestamp)
     end
   end
-
 end

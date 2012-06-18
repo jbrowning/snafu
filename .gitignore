@@ -3,3 +3,4 @@
 Gemfile.lock
 pkg/*
 api_key.rb
+spec/fixtures/vcr_cassettes
