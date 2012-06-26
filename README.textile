@@ -50,11 +50,24 @@ To get the current in-game date and time:
 
 h3. Giants
 
+You can get a list of all giants:
+
 <pre lang="ruby">
     # giants.list
     giants = snafu.get_giants
     giants.first.name
     => "Alph"
+</pre>
+
+Or, if you supply read-level OAuth token, you can see the user's favor with all giants:
+
+<pre lang="ruby">
+    # giants.getFavor
+    giants = snafu.get_giants_favor
+    giants.first.name
+    => "Alph"
+    giants.first.cur_favor
+    => 323
 </pre>
 
 h3. Locations

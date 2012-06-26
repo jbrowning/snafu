@@ -34,6 +34,18 @@ module Snafu
         end
       end
       
+      describe "GlitchTime.at" do
+        it "should return a GlitchTime at the specified day/month/year" do
+          pending
+          time = GlitchTime.at(23,1,2)
+          time.year.should == 23
+          time.month.should == 0
+          time.day.should == 1
+        end
+
+        it "should return midnight if no time is specified"
+      end
+
       describe "#seconds_since_epoch" do
         it "should return the seconds since the glitch epoch" do
           time = GlitchTime.new(glitch_epoch + 12345)
@@ -54,19 +66,22 @@ module Snafu
       end
       
       describe "#day_of_year" do
-        it "should return the day of the year" do
-          5.times { |day| GlitchTime.new(glitch_epoch + secs_in_game_day * day).day_of_year.should eql(day) }
+        it "should return the 1-based day of the year" do
+          (0..307).each do |day| 
+            GlitchTime.new(glitch_epoch + secs_in_game_day * day).day_of_year.should eql(day + 1)
+          end
         end
         
-        it "should roll back to 0 at the end of a game year" do
-          GlitchTime.new(glitch_epoch + secs_in_game_year).day_of_year.should eql(0)
+        it "should roll back to 1 at the end of a game year" do
+          GlitchTime.new(glitch_epoch + secs_in_game_year).day_of_year.should eql(1)
         end
       end
       
       describe "#month" do
         it "should return the month of the year" do          
-          12.times do |month|
-            time = GlitchTime.new(glitch_epoch + day_of_year_for_first_day_of_month(month) * secs_in_game_day)
+          (1..12).each do |month|
+            # Create a time right before midnight on the first day of the specified month
+            time = GlitchTime.new(beginning_of_first_day_of_month(month))
             time.month.should eql(month)
           end
         end
@@ -74,29 +89,32 @@ module Snafu
       
       describe "#day_of_month" do
         it "should return the day of the month" do
-          12.times do |n|
-            time = GlitchTime.new(beginning_of_first_day_of_month(n))
-            time.day_of_month.should eql(0)
+          (1..12).each do |month|
+            time = GlitchTime.new(beginning_of_first_day_of_month(month))
+            time.day_of_month.should eql(1)
           end
         end
       end
       
       describe "#name_of_month" do
         it "should return the name of the month" do
-          12.times do |n|
-            GlitchTime.new(glitch_epoch + day_of_year_for_first_day_of_month(n) * secs_in_game_day).name_of_month.should eql(names_of_months[n])
+          (1..12).each do |month|
+            GlitchTime.new(beginning_of_first_day_of_month(month)).name_of_month.should eql(names_of_months[month - 1])
           end
         end
       end
 
       describe "#day_of_week" do
         it "should return the correct day of week" do
-          8.times { |day| GlitchTime.new(glitch_epoch + secs_in_game_day * (day + 1) - 1).day_of_week.should == day}
+          (1..8).each do |day| 
+            time = GlitchTime.new(glitch_epoch + secs_in_game_day * (day - 1))
+            time.day_of_week.should == day
+          end
         end
 
         it "should return 3 for the day we wrote this code" do
           time = GlitchTime.new(1327359466)
-          time.day_of_week.should == 2
+          time.day_of_week.should == 3
         end
 
         it "should return Twoday for the day we wrote this code" do
@@ -147,25 +165,30 @@ module Snafu
       describe "#to_s" do
         it "should display the full time" do
           time = GlitchTime.new
-          pattern_string = "#{time.hour}:#{time.minute(padded: true)}, #{time.name_of_day} #{time.day_of_month + 1} of #{time.name_of_month}, year #{time.year}"
+          pattern_string = "#{time.hour}:#{time.minute(padded: true)}, #{time.name_of_day}, #{time.day_of_month} of #{time.name_of_month}, year #{time.year}"
           time.to_s.should match(pattern_string)
         end
       end
 
+
+      # Returns the 1-based day of year for the first day in the given month.
       def day_of_year_for_first_day_of_month(month_number)
-        result = 0
-        result = days_in_month[0..month_number-1].inject(:+) if month_number > 0
+        result = 1
+        result = days_in_month[0..month_number-1].inject(:+) if month_number > 1
         result
       end
 
+      # Returns a timestamp representing midnight on the first day of the given month. The month is
+      # 1-based so Primuary would be month 1, Spork would be month 2, and so on. 
+      #
       def beginning_of_first_day_of_month(month_number)
-        seconds_in_previous_days = 0
-        if month_number == 0
-          seconds_in_previous_days = 0
+        seconds_in_elapsed_days = 0
+        if month_number == 1
+          seconds_in_elapsed_days = 0
         else
-          seconds_in_previous_days = (days_in_month[0..month_number-1].inject(:+)) * secs_in_game_day
+          seconds_in_elapsed_days = (days_in_month[0..month_number - 2].inject(:+)) * secs_in_game_day
         end
-        glitch_epoch + seconds_in_previous_days
+        glitch_epoch + seconds_in_elapsed_days
       end
 
       def random_time(seed = 1000)

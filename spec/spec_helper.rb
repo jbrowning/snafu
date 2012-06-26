@@ -14,6 +14,7 @@ end
 
 RSpec.configure do |config|
   config.filter_run_excluding :broken => true
+  #config.filter_run_including :focus => true
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.extend VCR::RSpec::Macros
 end

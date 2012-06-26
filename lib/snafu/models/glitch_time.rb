@@ -34,40 +34,52 @@ module Snafu
         (seconds_since_epoch / Y_SECS).to_i
       end
       
-      # Returns the 0-based day of the current Glitch year
+      # Returns the 1-based day of the current Glitch year
       def day_of_year
-        (seconds_since_start_of_year / D_SECS).to_i
+        (seconds_since_start_of_year / D_SECS).to_i + 1
       end
       
-      # Returns the 0-based month of the year
+      # Returns the 1-based month of the year
       def month
-        running_days = -1
+        running_days = 0
         DAYS_IN_MONTH.each_with_index do |days, idx|
           running_days += days
-          return idx if day_of_year <= running_days
+          return idx + 1 if self.day_of_year <= running_days
         end
       end
       
       # Returns the name of the month
       def name_of_month
-        MONTH_NAMES[self.month]
+        MONTH_NAMES[self.month - 1]
       end
       
       # Returns the 0-based day of the month
       def day_of_month
-        return self.day_of_year if self.month == 0
-        self.day_of_year - DAYS_IN_MONTH.slice(0, (month)).inject(:+)
+        return self.day_of_year if self.month == 1
+        ((self.day_of_year - 1) - DAYS_IN_MONTH.slice(0, (month - 1)).inject(:+)) + 1
       end
+
+      alias_method :day, :day_of_month
       
-      # Returns the 0-based day of the week
+      # Returns the 1-based day of the week
       def day_of_week
-        return -1 if day_of_year == 307
-        days_since_epoch % 8
+        return -1 if self.day_of_year == 308
+        result = self.days_since_epoch % 8
+        if result > 0
+          result
+        else
+          8
+        end
+
       end
       
       # Returns the name of the day
       def name_of_day
-        DAY_NAMES[day_of_week]
+        if day_of_week == -1
+          DAY_NAMES[day_of_week]
+        else
+          DAY_NAMES[day_of_week - 1]
+        end
       end
 
       # Returns the number of game days since epoch
@@ -95,7 +107,7 @@ module Snafu
       end
 
       def to_s
-        "#{self.hour}:#{self.minute(padded: true)}, #{self.name_of_day} #{self.day_of_month + 1} of #{self.name_of_month}, year #{self.year}"
+        "#{self.hour}:#{self.minute(padded: true)}, #{self.name_of_day}, #{self.day_of_month} of #{self.name_of_month}, year #{self.year}"
       end
 
       private
@@ -104,7 +116,7 @@ module Snafu
       end
       
       def seconds_since_start_of_day
-        seconds_since_start_of_year - (D_SECS * self.day_of_year)
+        seconds_since_start_of_year - (D_SECS * (self.day_of_year - 1))
       end
 
       def seconds_since_start_of_hour

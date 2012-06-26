@@ -1,3 +1,7 @@
+h2. 0.3.0
+
+* *BACKWARDS-INCOMPATIBLE CHANGE:* In order to accommodate a more intuitive date construct, GlitchTime now returns a 1-based day of week, day of year, day of month, and month of year (i.e. the first day of the week is 1); the year is still 0-based (year 0 being the the first year of the game)
+
 h2. 0.2.0
 
 * Hub#streets now contains an array of Street objects
@@ -12,7 +16,7 @@ h2. 0.1.2
 
 h2. 0.1.1
 
-* Fixed an issue where Hub.new would not populate steet names when given the raw result from Glitch
+* Fixed an issue where Hub.new would not populate street names when given the raw result from Glitch
 
 h2. 0.1.0
 
